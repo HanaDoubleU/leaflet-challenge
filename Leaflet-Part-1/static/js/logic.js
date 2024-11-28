@@ -63,10 +63,32 @@ d3.json(earthquakes).then(function(data) {
         // xpert
         L.circle(data.features[i].geometry.coordinates.slice(0, 2).reverse(), {
             fillOpacity: 0.9,
-            color: "black",
+            color: "white",
             fillColor: fillColor,
             radius: size(data.features[i].properties.mag)
             }
         ).bindPopup(`<h1>${data.features[i].properties.title}</h1><hr><h2>additional information:</h2><br><h3><a href=${data.features[i].properties.url}>link</a></h3>`).addTo(map);
     }
+
+    // legend
+    // reference: https://leafletjs.com/examples/choropleth/
+    // xpert
+    let legend = L.control({ position: "bottomright" });
+    legend.onAdd = function() {
+        let div = L.DomUtil.create("div", "info legend");
+        let depths = [0, 2, 4, 6, 8, 10];
+        let colors = ["#f7cac9", "#dec2cb", "#c5b9cd", "#abb1cf", "#92a8d1", "#3a4353"];
+        // title
+        div.innerHTML += "<h1>Earthquakes' Depths</h1>";
+        // loop through intervals for colored squares
+        for (let i = 0; i < depths.length; i++) {
+            div.innerHTML +=
+                '<i style="background:' + colors[i] + '"></i> ' +
+                depths[i] + (depths[i + 1] ? '&ndash;' + depths[i + 1] + ' km<br>' : '+ km<br>');
+        }
+
+        return div;
+    };
+    // adding to map
+    legend.addTo(map);
 });
