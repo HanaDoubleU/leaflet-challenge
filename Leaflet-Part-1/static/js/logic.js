@@ -43,15 +43,15 @@ d3.json(earthquakes).then(function(data) {
     // xpert
     for (let i = 0; i < data.features.length; i++) {
         let fillColor = "";
-        if (data.features[i].geometry.coordinates[2] < 2) {
+        if (data.features[i].geometry.coordinates[2] < 10) {
             fillColor = "#f7cac9";
-        } else if (data.features[i].geometry.coordinates[2] < 4) {
+        } else if (data.features[i].geometry.coordinates[2] < 30) {
             fillColor = "#dec2cb";
-        } else if (data.features[i].geometry.coordinates[2] < 6) {
+        } else if (data.features[i].geometry.coordinates[2] < 50) {
             fillColor = "#c5b9cd";
-        } else if (data.features[i].geometry.coordinates[2] < 8) {
+        } else if (data.features[i].geometry.coordinates[2] < 70) {
             fillColor = "#abb1cf";
-        } else if (data.features[i].geometry.coordinates[2] < 10) {
+        } else if (data.features[i].geometry.coordinates[2] < 90) {
             fillColor = "#92a8d1";
         // if (data.features[i].geometry.coordinates[2] < 1000)
         } else {
@@ -76,7 +76,7 @@ d3.json(earthquakes).then(function(data) {
     let legend = L.control({ position: "bottomright" });
     legend.onAdd = function() {
         let div = L.DomUtil.create("div", "info legend");
-        let depths = [0, 2, 4, 6, 8, 10];
+        let depths = [0, 10, 30, 50, 70, 90];
         let colors = ["#f7cac9", "#dec2cb", "#c5b9cd", "#abb1cf", "#92a8d1", "#3a4353"];
         // title
         div.innerHTML += "<h1>Earthquakes' Depths</h1>";
